@@ -14,9 +14,9 @@
 int main()
 {
     /* Finite Field Parameters */
-   const std::size_t field_descriptor                =   2;
-   const std::size_t generator_polynomial_index      =   2;
-   const std::size_t generator_polynomial_root_count =   1;
+   const std::size_t field_descriptor                =   5;
+   const std::size_t generator_polynomial_index      =   1;
+   const std::size_t generator_polynomial_root_count =   2;
 
    /* Reed Solomon Code Parameters */
    const std::size_t code_length = 11;
@@ -63,6 +63,7 @@ int main()
 
    /* Pad message with nulls up until the code-word length */
    message.resize(code_length,0x00);
+   std::cout << "Message: " << buffer  << std::endl;
 
    /* Instantiate RS Block For Codec */
    schifra::reed_solomon::block<code_length,fec_length> block;
@@ -74,8 +75,8 @@ int main()
                 << "Msg: " << block.error_as_string()  << std::endl;
       return 1;
    }
-
-   std::cout << "Encoded Message: " << message  << std::endl;
+   
+   std::cout << "Encoded Message: " << block.data  << std::endl;
 
    return 0;
 }
