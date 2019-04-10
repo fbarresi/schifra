@@ -48,7 +48,7 @@ namespace schifra
          typedef block<code_length, fec_length> block_type;
 
          encoder(const galois::field& gfield, const galois::field_polynomial& generator)
-         : encoder_valid_(code_length == gfield.size()),
+         : encoder_valid_(code_length <= gfield.size()),
            field_(gfield),
            generator_(generator)
          {}
