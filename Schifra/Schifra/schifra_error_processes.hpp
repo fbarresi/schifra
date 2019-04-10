@@ -32,7 +32,6 @@
 #include <vector>
 
 #include "schifra_reed_solomon_block.hpp"
-#include "schifra_fileio.hpp"
 
 
 namespace schifra
@@ -441,51 +440,6 @@ namespace schifra
       return true;
    }
 
-   inline void corrupt_file_with_burst_errors(const std::string& file_name,
-                                              const long& start_position,
-                                              const long& burst_length)
-   {
-      if (!schifra::fileio::file_exists(file_name))
-      {
-         std::cout << "corrupt_file() - Error: " << file_name << " does not exist!" << std::endl;
-         return;
-      }
-
-      if (static_cast<std::size_t>(start_position + burst_length) >= schifra::fileio::file_size(file_name))
-      {
-         std::cout << "corrupt_file() - Error: Burst error out of bounds." << std::endl;
-         return;
-      }
-
-      std::vector<char> data(burst_length);
-
-      std::ifstream ifile(file_name.c_str(), std::ios::in | std::ios::binary);
-
-      if (!ifile)
-      {
-         return;
-      }
-
-      ifile.seekg(start_position,std::ios_base::beg);
-      ifile.read(&data[0],burst_length);
-      ifile.close();
-
-      for (long i = 0; i < burst_length; ++i)
-      {
-         data[i] = ~data[i];
-      }
-
-      std::ofstream ofile(file_name.c_str(), std::ios::in | std::ios::out | std::ios::binary);
-
-      if (!ofile)
-      {
-         return;
-      }
-
-      ofile.seekp(start_position,std::ios_base::beg);
-      ofile.write(&data[0],burst_length);
-      ofile.close();
-   }
 
    static const std::size_t global_random_error_index[] =
                          {

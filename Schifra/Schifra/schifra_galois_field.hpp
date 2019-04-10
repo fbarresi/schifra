@@ -511,6 +511,10 @@ namespace schifra
       const unsigned int primitive_polynomial14[]    = {1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1};
       const unsigned int primitive_polynomial_size14 = 17;
 
+	  /* 1x^0 + 0x^1 + 0x^2 + 1x^3 + 0x^4 + 1x^5 */
+	  const unsigned int primitive_polynomial41[] = { 1, 0, 0, 1, 0, 1};
+	  const unsigned int primitive_polynomial_size41 = 6;
+
    } // namespace galois
 
 } // namespace schifra
